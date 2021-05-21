@@ -10,7 +10,19 @@ import styles from './Header.module.scss';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>Header</h2>
+    <nav>
+      <div className={styles.links}>
+        <a href='/'>Home</a>
+        <a href='/about'>About</a>
+        <a href='/contact'>Contact</a>
+      </div>
+      <a href='/' className={styles.logo}>
+        <h3>Retro headphones</h3>
+      </a>
+      <a href='/cart' className={styles.cart}>
+        <i className="fas fa-shopping-basket"></i>
+      </a>
+    </nav>
     {children}
   </div>
 );

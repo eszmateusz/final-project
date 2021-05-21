@@ -1,44 +1,33 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
-import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
+import MainLayout from './components/layout/MainLayout/MainLayout';
 
-import { store } from './redux/store';
-
-import { MainLayout } from './components/layout/MainLayout/MainLayout';
+// import routes
 import { Homepage } from './components/views/Homepage/Homepage';
-import { Post } from './components/views/Post/Post';
-import { PostEdit } from './components/views/PostEdit/PostEdit';
-import { PostAdd } from './components/views/PostAdd/PostAdd';
 import { NotFound } from './components/views/NotFound/NotFound';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: { main: '#2B4C6F' },
-  },
-});
+class App extends React.Component {
 
-const App = () => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <StylesProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <MainLayout>
-            <Switch>
-              <Route exact path='/' component={Homepage} />
-              <Route exact path='/post/add' component={PostAdd} />
-              <Route exact path='/post/:id' component={Post} />
-              <Route exact path='/post/:id/edit' component={PostEdit} />
-              <Route path='*' component={NotFound} />
-            </Switch>
-          </MainLayout>
-        </ThemeProvider>
-      </StylesProvider>
-    </BrowserRouter>
-  </Provider>
-);
+  componentDidMount() {
+    const { loadProducts } = this.props;
+    loadProducts();
+  }
 
-export { App };
+  render() {
+    return (
+      <MainLayout>
+          <Switch>
+            <Route path="/" exact component={Homepage} />
+            {/* <Route path="/photo/:id" exact component={Photo} />
+            <Route path="/terms-of-use" exact component={TermsOfUse} />
+            <Route path="/privacy-policy" exact component={PrivacyPolicy} />
+            <Route path="/submit" exact component={Submit} /> */}
+            <Route component={NotFound} />
+          </Switch>
+      </MainLayout>
+    );
+  }
+}
+
+export default App;
