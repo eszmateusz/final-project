@@ -16,7 +16,7 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
-const Component = ({className, children, products, fetchProducts}) => {
+const Component = ({className, children, products}) => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -55,11 +55,16 @@ const Component = ({className, children, products, fetchProducts}) => {
   return (
     <div className={clsx(className, styles.root, 'container')}>
       <div className={styles.bannerLeft}>
-        <h1>
-          Especially for You<br></br>
-          Retro<br></br>
-          Headphones
-        </h1>
+        <h1>Especially for You Retro Headphones. Leave your email here and know more.</h1>
+        <form id='newsletter'>
+          <label>
+            <h5>sign up today</h5>
+            <input type='email' name='email' placeholder='Enter Your Email Address' />
+          </label>
+          <button type='submit' form='newsletter' value='Submit'>
+            <i className='fas fa-arrow-right'></i>
+          </button>
+        </form>
       </div>
       <div className={styles.bannerRight}>
         <Carousel
@@ -69,8 +74,8 @@ const Component = ({className, children, products, fetchProducts}) => {
         >
           <CarouselIndicators items={products} activeIndex={activeIndex} onClickHandler={goToIndex} />
           {slides}
-          <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-          <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+          <CarouselControl direction='prev' directionText='Previous' onClickHandler={previous} />
+          <CarouselControl direction='next' directionText='Next' onClickHandler={next} />
         </Carousel>
       </div >
       {children}
@@ -82,7 +87,6 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   products: PropTypes.array,
-  fetchProducts: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

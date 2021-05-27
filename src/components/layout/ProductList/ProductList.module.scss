@@ -1,4 +1,30 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  h2 {
+    margin-top: 50px;
+  }
+
+  .productsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* social */
+
+@media(max-width: $desktop-breakpoint) {
+  .root {
+    .productsWrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media(max-width: $tablet-breakpoint) {
+  .root {
+    .productsWrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+}

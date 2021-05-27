@@ -1,11 +1,11 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 /* selectors */
-export const getAll = ({ products }) => products.data;
-export const getCount = ({ products }) => products.length;
+export const getAll = ({ cart }) => cart.data;
+export const getCount = ({ cart }) => cart.length;
 
 /* action name creator */
-const reducerName = 'products';
+const reducerName = 'cart';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
@@ -23,38 +23,37 @@ export const changePost = payload => ({ payload, type: CHANGE_POST });
 export const addPost = payload => ({ payload, type: ADD_POST });
 
 /* thunk creators */
-export const fetchProducts = () => {
-  return async (dispatch) => {
-    dispatch(fetchStarted());
+// export const fetchProducts = () => {
+//   return async (dispatch) => {
+//     dispatch(fetchStarted());
 
-    try {
-      let res = await axios.get('http://localhost:8000/api/products');
-      console.log(res)
-      dispatch(fetchSuccess(res.data));
-    }
+//     try {
+//       let res = await axios.get('http://localhost:8000/api/products');
+//       console.log(res)
+//       dispatch(fetchSuccess(res.data));
+//     }
+//     catch(err) {
+//       dispatch(fetchError(err.message || true));
+//     }
+//   }
+// };
 
-    catch(err) {
-      dispatch(fetchError(err.message || true));
-    }
-  }
-};
+// export const fetchProductById = (id) => {
+//   return async dispatch => {
+//     dispatch(fetchStarted());
 
-export const fetchProductById = (id) => {
-  return async dispatch => {
-    dispatch(fetchStarted());
+//     try {
+//       let res = await axios.get(`http://localhost:8000/api/products/${id}`);
 
-    try {
-      let res = await axios.get(`http://localhost:8000/api/products/${id}`);
+//       dispatch(fetchSuccess(res.data));
+//     }
+//     catch(err) {
+//       dispatch(fetchError(err.message || true));
+//     }
+//   };
+// };
 
-      dispatch(fetchSuccess(res.data));
-    }
-    catch(err) {
-      dispatch(fetchError(err.message || true));
-    }
-  };
-};
-
-/* initial state */
+/* INITIAL STATE */
 
 const initialState = {
   data: [],
@@ -62,7 +61,6 @@ const initialState = {
 };
 
 /* reducer */
-
 export const reducer = (statePart = initialState, action = {}) => {
   switch (action.type) {
     case FETCH_START: {
@@ -74,7 +72,6 @@ export const reducer = (statePart = initialState, action = {}) => {
         },
       };
     }
-
     case FETCH_SUCCESS: {
       return {
         ...statePart,
@@ -85,7 +82,6 @@ export const reducer = (statePart = initialState, action = {}) => {
         data: action.payload,
       };
     }
-
     case FETCH_ERROR: {
       return {
         ...statePart,
@@ -95,7 +91,6 @@ export const reducer = (statePart = initialState, action = {}) => {
         },
       };
     }
-
     case CHANGE_POST: {
       const {id, title, price, description} = action.payload;
 
@@ -108,7 +103,6 @@ export const reducer = (statePart = initialState, action = {}) => {
 
       return newState;
     }
-
     case ADD_POST: {
       const newState = {...statePart};
       newState.data.push(action.payload);
